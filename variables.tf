@@ -115,3 +115,21 @@ variable cdn {
   description = "Set to `true` to enable cdn on backend."
   default     = "false"
 }
+
+variable "connection_draining_timeout_sec" {
+  type = "string"
+  description = "Time for which instance will be drained (not accept new connections, but still work to finish started)."
+  default = "300"
+}
+
+variable "session_affinity" {
+  type = "string"
+  description = "Type of session affinity to use"
+  default = "NONE"
+}
+
+variable "affinity_cookie_ttl_sec" {
+  type = "string"
+  description = "Lifetime of cookies in seconds if session_affinity is GENERATED_COOKIE."
+  default = "900"
+}
