@@ -89,9 +89,9 @@ resource "google_compute_backend_service" "default" {
   health_checks                   = ["${element(google_compute_http_health_check.default.*.self_link, count.index)}"]
   security_policy                 = "${var.security_policy}"
   enable_cdn                      = "${var.cdn}"
-  connection_draining_timeout_sec = "${var.connection_draining_timeout_sec}"
-  session_affinity                = "${var.session_affinity}"
-  affinity_cookie_ttl_sec         = "${var.affinity_cookie_ttl_sec}"
+  connection_draining_timeout_sec = "${lookup(var.backend_service_params[count.index], "connection_draining_timeout_sec", var.connection_draining_timeout_sec)}"
+  session_affinity                = "${lookup(var.backend_service_params[count.index], "session_affinity", var.session_affinity)}"
+  affinity_cookie_ttl_sec         = "${lookup(var.backend_service_params[count.index], "affinity_cookie_ttl_sec", var.affinity_cookie_ttl_sec)}"
 }
 
 resource "google_compute_http_health_check" "default" {

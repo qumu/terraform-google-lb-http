@@ -116,6 +116,11 @@ variable cdn {
   default     = "false"
 }
 
+variable "backend_service_params" {
+  type = "map"
+  description = "Backend Service Parameters"
+}
+
 variable "connection_draining_timeout_sec" {
   type = "string"
   description = "Time for which instance will be drained (not accept new connections, but still work to finish started)."
