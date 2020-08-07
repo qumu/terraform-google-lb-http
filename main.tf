@@ -95,11 +95,15 @@ resource "google_compute_backend_service" "default" {
 }
 
 resource "google_compute_http_health_check" "default" {
-  project      = "${var.project}"
-  count        = "${length(var.backend_params)}"
-  name         = "${var.name}-backend-${count.index}"
-  request_path = "${element(split(",", element(var.backend_params, count.index)), 0)}"
-  port         = "${element(split(",", element(var.backend_params, count.index)), 2)}"
+  project             = "${var.project}"
+  count               = "${length(var.backend_params)}"
+  name                = "${var.name}-backend-${count.index}"
+  request_path        = "${element(split(",", element(var.backend_params, count.index)), 0)}"
+  port                = "${element(split(",", element(var.backend_params, count.index)), 2)}"
+  check_interval_sec  = 30
+  healthy_threshold   = 1
+  unhealthy_threshold = 2
+  timeout_sec         = 10
 }
 
 # Create firewall rule for each backend in each network specified, uses mod behavior of element().
